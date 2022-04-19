@@ -1,7 +1,9 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.CatDTO;
 import dtos.CatImageDTO;
+import dtos.FactDTO;
 import utils.HttpUtils;
 
 import javax.ws.rs.*;
@@ -11,19 +13,20 @@ import java.io.IOException;
 @Path("cat")
 public class CatResource
 {
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("cat")
     public String getCat() throws IOException
     {
         Gson GSON = new Gson();
-        String catImage = HttpUtils.fetchData("https://cataas.com/cat?json=true");
-        System.out.println(catImage);
+        String fact = HttpUtils.fetchData("https://catfact.ninja/fact");
+        FactDTO factDTO = GSON.fromJson(fact, FactDTO.class);
+        String catImage = HttpUtils.fetchData("https://api.thecatapi.com/v1/images/search");
         CatImageDTO catImageDTO = GSON.fromJson(catImage, CatImageDTO.class);
         //CatDTO catDTO = new CatDTO(factDTO, catImageDTO);
-        catImageDTO.setUrl("https://cataas.com"+catImageDTO.getUrl());
         String result = GSON.toJson(catImageDTO);
-        return result;
+        return catImage;
     }
 
     @GET
