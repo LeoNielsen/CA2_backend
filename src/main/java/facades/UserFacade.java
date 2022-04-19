@@ -55,7 +55,6 @@ public class UserFacade {
             if (em.find(User.class, username) == null){
                 em.getTransaction().begin();
                 em.persist(user);
-//                em.persist(role);
                 em.getTransaction().commit();
             } else throw new Exception("User already exists :(");
         } catch (Exception e)
@@ -67,5 +66,8 @@ public class UserFacade {
         }
         return user;
     }
+
+    //ToDo: register admin, possibly change name and password
+
 
 }
