@@ -1,6 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.UserDTO;
 import entities.User;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -67,5 +68,20 @@ public class DemoResource {
     public String getFromAdmin() {
         String thisuser = securityContext.getUserPrincipal().getName();
         return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("userinfo")
+    @RolesAllowed({"user", "admin"})
+
+    public String getUserName() {
+        String thisuser = securityContext.getUserPrincipal().getName();
+        EntityManager em = EMF.createEntityManager();
+        User currentUser = em.find(User.class, thisuser);
+        UserDTO userDTO = new UserDTO(currentUser);
+        Gson GSON = new Gson();
+
+        return GSON.toJson(userDTO);
     }
 }
