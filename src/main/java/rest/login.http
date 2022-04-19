@@ -1,0 +1,10 @@
+POST http://localhost:8080/devops_starter_war_exploded/api/login
+
+{"username":"user", "password":"test123"}
+
+###
+
+GET https://catfact.ninja/fact
+
+###
+GET https://api.thecatapi.com/v1/images/search
