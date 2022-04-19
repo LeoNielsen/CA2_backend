@@ -1,24 +1,24 @@
 package dtos;
 
-public class CatDTO {
-    private String fact;
+public class CatImageDTO {
+    private String id;
     private String url;
     private String width;
     private String height;
 
-    public CatDTO(FactDTO factDTO, CatImageDTO catImageDTO) {
-        this.fact = factDTO.getFact();
-        this.url = catImageDTO.getUrl();
-        this.width = catImageDTO.getWidth();
-        this.height = catImageDTO.getHeight();
+    public CatImageDTO(String id, String url, String width, String height) {
+        this.id = id;
+        this.url = url;
+        this.width = width;
+        this.height = height;
     }
 
-    public String getFact() {
-        return fact;
+    public String getId() {
+        return id;
     }
 
-    public void setFact(String fact) {
-        this.fact = fact;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUrl() {
