@@ -7,4 +7,4 @@ POST http://localhost:8080/devops_starter_war_exploded/api/login
 GET https://catfact.ninja/fact
 
 ###
-GET https://api.thecatapi.com/v1/images/search
+GET https://cataas.com/cat?json=true
