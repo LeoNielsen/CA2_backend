@@ -1,10 +1,10 @@
 package dtos;
 
-public class FactDTO {
+public class CatFactDTO {
     private String fact;
     private String length;
 
-    public FactDTO(String fact, String length) {
+    public CatFactDTO(String fact, String length) {
         this.fact = fact;
         this.length = length;
     }

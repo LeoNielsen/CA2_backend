@@ -14,3 +14,19 @@ GET https://cataas.com/cat?json=true
 POST http://localhost:8080/ca2_startcode_backend_war_exploded/api/info/newuser
 
 {"userName":"user2", "userPass":"test123"}
+
+###
+GET http://localhost:8080/ca2_startcode_backend_war_exploded/api/cat/cat
+
+
+###
+
+GET http://localhost:8080/ca2_startcode_backend_war_exploded/api/dog/dog
+
+###
+
+GET https://dog-api.kinduff.com/api/facts
+
+###
+
+GET https://api.thedogapi.com/v1/images/search

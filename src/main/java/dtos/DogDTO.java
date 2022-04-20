@@ -1,12 +1,12 @@
 package dtos;
 
-public class CatDTO {
+public class DogDTO {
     private String fact;
     private String url;
 
-    public CatDTO(CatFactDTO factDTO, CatImageDTO catImageDTO) {
-        this.fact = factDTO.getFact();
-        this.url = catImageDTO.getUrl();
+    public DogDTO(DogFactDTO factDTO, DogImageDTO dogImageDTO) {
+        this.fact = factDTO.getFacts().get(0);
+        this.url = dogImageDTO.getUrl();
 
     }
 
@@ -25,6 +25,4 @@ public class CatDTO {
     public void setUrl(String url) {
         this.url = url;
     }
-
-
 }

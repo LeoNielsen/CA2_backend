@@ -3,7 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import dtos.CatDTO;
 import dtos.CatImageDTO;
-import dtos.FactDTO;
+import dtos.CatFactDTO;
 import utils.HttpUtils;
 
 import javax.ws.rs.*;
@@ -21,7 +21,7 @@ public class CatResource
     {
         Gson GSON = new Gson();
         String fact = HttpUtils.fetchData("https://catfact.ninja/fact");
-        FactDTO factDTO = GSON.fromJson(fact, FactDTO.class);
+        CatFactDTO factDTO = GSON.fromJson(fact, CatFactDTO.class);
         String catImage = HttpUtils.fetchData("https://cataas.com/cat?json=true");
         CatImageDTO catImageDTO = GSON.fromJson(catImage, CatImageDTO.class);
         catImageDTO.setUrl("https://cataas.com"+catImageDTO.getUrl());
