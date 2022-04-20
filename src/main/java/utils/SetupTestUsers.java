@@ -1,6 +1,7 @@
 package utils;
 
 
+import entities.AnimalImage;
 import entities.Role;
 import entities.User;
 import facades.UserFacade;
@@ -22,6 +23,15 @@ public class SetupTestUsers {
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
 
     User user = new User("user", "test123");
+    AnimalImage a = new AnimalImage("https://cdn2.thedogapi.com/images/ZcMM_Og7i.jpg");
+    AnimalImage b = new AnimalImage("https://cdn2.thedogapi.com/images/oUFtdaSw1.jpg");
+    AnimalImage c =new AnimalImage("https://cdn2.thedogapi.com/images/WinSPF9rK.jpg");
+
+    user.addFavorite(a);
+    user.addFavorite(b);
+    user.addFavorite(c);
+
+
     User admin = new User("admin", "test123");
     User both = new User("user_admin", "test123");
 
@@ -33,6 +43,9 @@ public class SetupTestUsers {
     em.getTransaction().begin();
     Role userRole = new Role("user");
     Role adminRole = new Role("admin");
+//    em.persist(a);
+//    em.persist(b);
+//    em.persist(c);
 //    user.addRole(userRole);
     admin.addRole(adminRole);
     both.addRole(userRole);
