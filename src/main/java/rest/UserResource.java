@@ -1,6 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.AnimalImageDTO;
 import dtos.UserDTO;
 import entities.User;
 import java.util.List;
@@ -74,7 +75,6 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("userinfo")
     @RolesAllowed({"user", "admin"})
-
     public String getUserName() {
         String thisuser = securityContext.getUserPrincipal().getName();
         EntityManager em = EMF.createEntityManager();
@@ -88,12 +88,20 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("newuser")
     public String addNewUser(String data) {
-        System.out.println("data" + data);
         UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
         User user = userDTO.toUser();
 
         User user1 = UserFacade.getUserFacade(EMF).registerNewUser(user);
         return GSON.toJson(user1);
     }
+
+//    @PUT
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Path("addfavorite")
+//    public String addFavorite(String data, String UserName){
+//        AnimalImageDTO animalImageDTO = GSON.fromJson(data, AnimalImageDTO.class);
+//
+//    }
 
 }

@@ -2,7 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import dtos.CatDTO;
-import dtos.CatImageDTO;
+import dtos.AnimalImageDTO;
 import dtos.CatFactDTO;
 import utils.HttpUtils;
 
@@ -23,7 +23,7 @@ public class CatResource
         String fact = HttpUtils.fetchData("https://catfact.ninja/fact");
         CatFactDTO factDTO = GSON.fromJson(fact, CatFactDTO.class);
         String catImage = HttpUtils.fetchData("https://api.thecatapi.com/v1/images/search");
-        CatImageDTO[] catImageDTO = GSON.fromJson(catImage, CatImageDTO[].class);
+        AnimalImageDTO[] catImageDTO = GSON.fromJson(catImage, AnimalImageDTO[].class);
         CatDTO catDTO = new CatDTO(factDTO, catImageDTO[0]);
         return GSON.toJson(catDTO);
     }

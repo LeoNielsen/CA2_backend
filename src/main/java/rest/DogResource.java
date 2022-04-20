@@ -22,7 +22,7 @@ public class DogResource {
         String fact = HttpUtils.fetchData("https://dog-api.kinduff.com/api/facts");
         DogFactDTO factDTO = GSON.fromJson(fact, DogFactDTO.class);
         String dogImage = HttpUtils.fetchData("https://api.thedogapi.com/v1/images/search");
-        DogImageDTO[] dogImageDTO = GSON.fromJson(dogImage, DogImageDTO[].class);
+        AnimalImageDTO[] dogImageDTO = GSON.fromJson(dogImage, AnimalImageDTO[].class);
         DogDTO dogDTO = new DogDTO(factDTO, dogImageDTO[0]);
         return GSON.toJson(dogDTO);
     }
@@ -43,7 +43,7 @@ public class DogResource {
     public String getDogPictures() throws IOException
     {
         String dogImage = HttpUtils.fetchData("https://api.thedogapi.com/v1/images/search");
-        DogImageDTO[] dogImageDTO = GSON.fromJson(dogImage, DogImageDTO[].class);
+        AnimalImageDTO[] dogImageDTO = GSON.fromJson(dogImage, AnimalImageDTO[].class);
         return GSON.toJson(dogImageDTO);
     }
 

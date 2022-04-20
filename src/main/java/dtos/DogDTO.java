@@ -4,7 +4,7 @@ public class DogDTO {
     private String fact;
     private String url;
 
-    public DogDTO(DogFactDTO factDTO, DogImageDTO dogImageDTO) {
+    public DogDTO(DogFactDTO factDTO, AnimalImageDTO dogImageDTO) {
         this.fact = factDTO.getFacts().get(0);
         this.url = dogImageDTO.getUrl();
 

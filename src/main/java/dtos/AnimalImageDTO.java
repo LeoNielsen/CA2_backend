@@ -1,11 +1,11 @@
 package dtos;
 
-public class DogImageDTO {
+public class AnimalImageDTO {
     private String id;
     private String url;
 
 
-    public DogImageDTO(String id, String url) {
+    public AnimalImageDTO(String id, String url) {
         this.id = id;
         this.url = url;
 
@@ -27,6 +27,5 @@ public class DogImageDTO {
     public void setUrl(String url) {
         this.url = url;
     }
-
 
 }

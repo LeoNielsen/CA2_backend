@@ -4,7 +4,7 @@ public class CatDTO {
     private String fact;
     private String url;
 
-    public CatDTO(CatFactDTO factDTO, CatImageDTO catImageDTO) {
+    public CatDTO(CatFactDTO factDTO, AnimalImageDTO catImageDTO) {
         this.fact = factDTO.getFact();
         this.url = catImageDTO.getUrl();
 

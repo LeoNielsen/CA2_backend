@@ -1,5 +1,6 @@
 package facades;
 
+import entities.AnimalImage;
 import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
@@ -63,6 +64,21 @@ public class UserFacade {
         {
             em.close();
         }
+        return user;
+    }
+
+    public User addAnimalImage(User user, AnimalImage image){
+        user.addFavorite(image);
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
         return user;
     }
 
