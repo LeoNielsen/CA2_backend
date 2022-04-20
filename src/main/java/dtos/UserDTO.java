@@ -10,11 +10,17 @@ public class UserDTO
 {
     String userName;
     List<String> roles;
+    String userPass;
 
     public UserDTO(User user)
     {
         this.userName = user.getUserName();
+        this.userPass = user.getUserPass();
         this.roles = getRoles(user.getRoleList());
+    }
+
+    public User toUser () {
+        return new User(this.userName, this.userPass);
     }
 
     public List<String> getRoles(List<Role> roles){

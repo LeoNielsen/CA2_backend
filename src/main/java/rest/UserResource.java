@@ -8,25 +8,25 @@ import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
+
+import facades.UserFacade;
 import utils.EMF_Creator;
 
 /**
  * @author lam@cphbusiness.dk
  */
 @Path("info")
-public class DemoResource {
+public class UserResource {
     
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     @Context
     private UriInfo context;
-
+    Gson GSON = new Gson();
     @Context
     SecurityContext securityContext;
 
@@ -80,8 +80,20 @@ public class DemoResource {
         EntityManager em = EMF.createEntityManager();
         User currentUser = em.find(User.class, thisuser);
         UserDTO userDTO = new UserDTO(currentUser);
-        Gson GSON = new Gson();
-
         return GSON.toJson(userDTO);
     }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("newuser")
+    public String addNewUser(String data) {
+        System.out.println("data" + data);
+        UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
+        User user = userDTO.toUser();
+
+        User user1 = UserFacade.getUserFacade(EMF).registerNewUser(user);
+        return GSON.toJson(user1);
+    }
+
 }
