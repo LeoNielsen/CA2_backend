@@ -22,10 +22,9 @@ public class CatResource
         Gson GSON = new Gson();
         String fact = HttpUtils.fetchData("https://catfact.ninja/fact");
         CatFactDTO factDTO = GSON.fromJson(fact, CatFactDTO.class);
-        String catImage = HttpUtils.fetchData("https://cataas.com/cat?json=true");
-        CatImageDTO catImageDTO = GSON.fromJson(catImage, CatImageDTO.class);
-        catImageDTO.setUrl("https://cataas.com"+catImageDTO.getUrl());
-        CatDTO catDTO = new CatDTO(factDTO, catImageDTO);
+        String catImage = HttpUtils.fetchData("https://api.thecatapi.com/v1/images/search");
+        CatImageDTO[] catImageDTO = GSON.fromJson(catImage, CatImageDTO[].class);
+        CatDTO catDTO = new CatDTO(factDTO, catImageDTO[0]);
         return GSON.toJson(catDTO);
     }
 
