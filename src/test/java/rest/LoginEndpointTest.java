@@ -73,7 +73,7 @@ public class LoginEndpointTest {
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");
-            user.addFavorite(new AnimalImage("id", "url"));
+//            user.addFavorite(new AnimalImage("id", "url"));
             user.addRole(userRole);
             User admin = new User("admin", "test");
             admin.addRole(adminRole);
