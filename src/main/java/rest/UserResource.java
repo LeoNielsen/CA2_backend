@@ -3,7 +3,9 @@ package rest;
 import com.google.gson.Gson;
 import dtos.AnimalImageDTO;
 import dtos.UserDTO;
+import entities.AnimalImage;
 import entities.User;
+
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
@@ -23,7 +25,7 @@ import utils.EMF_Creator;
  */
 @Path("info")
 public class UserResource {
-    
+
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     @Context
     private UriInfo context;
@@ -45,7 +47,7 @@ public class UserResource {
 
         EntityManager em = EMF.createEntityManager();
         try {
-            TypedQuery<User> query = em.createQuery ("select u from User u",entities.User.class);
+            TypedQuery<User> query = em.createQuery("select u from User u", entities.User.class);
             List<User> users = query.getResultList();
             return "[" + users.size() + "]";
         } finally {
@@ -107,13 +109,26 @@ public class UserResource {
         return GSON.toJson(user1);
     }
 
-//    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("addfavorite")
-//    public String addFavorite(String data, String UserName){
-//        AnimalImageDTO animalImageDTO = GSON.fromJson(data, AnimalImageDTO.class);
-//
-//    }
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("addfavorite")
+    @RolesAllowed({"user", "admin"})
+    public String addFavorite(String data) {
+        //todo: overflowError?
+
+        System.out.println("data: " + data);
+        AnimalImageDTO animalImageDTO = GSON.fromJson(data, AnimalImageDTO.class);
+
+        System.out.println(animalImageDTO.getId());
+
+        String thisuser = securityContext.getUserPrincipal().getName();
+        EntityManager em = EMF.createEntityManager();
+        User currentUser = em.find(User.class, thisuser);
+
+        User user = UserFacade.getUserFacade(EMF).addAnimalImage(currentUser, new AnimalImage(animalImageDTO.getId(), animalImageDTO.getUrl()));
+
+        return GSON.toJson(user);
+    }
 
 }

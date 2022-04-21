@@ -1,10 +1,13 @@
 package facades;
 
+import dtos.AnimalImageDTO;
 import entities.AnimalImage;
 import entities.Role;
 import entities.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 import security.errorhandling.AuthenticationException;
 
 /**
@@ -19,7 +22,6 @@ public class UserFacade {
     }
 
     /**
-     *
      * @param _emf
      * @return the instance of this facade.
      */
@@ -45,34 +47,36 @@ public class UserFacade {
         return user;
     }
 
-    public User registerNewUser(User user){
+    public User registerNewUser(User user) {
         EntityManager em = emf.createEntityManager();
         Role role = new Role("user");
         user.addRole(role);
 
-        try
-        {
-            if (em.find(User.class, user.getUserName()) == null){
+        try {
+            if (em.find(User.class, user.getUserName()) == null) {
                 em.getTransaction().begin();
                 em.persist(user);
                 em.getTransaction().commit();
             } else throw new Exception("User already exists :(");
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally
-        {
+        } finally {
             em.close();
         }
         return user;
     }
 
-    public User addAnimalImage(User user, AnimalImage image){
+    public User addAnimalImage(User user, AnimalImage image) {
         user.addFavorite(image);
         EntityManager em = emf.createEntityManager();
-
+        AnimalImage animalImage = em.find(AnimalImage.class, image.getId());
         try {
             em.getTransaction().begin();
+
+            if (animalImage == null) {
+                em.persist(image);
+            }
+
             em.merge(user);
             em.getTransaction().commit();
         } finally {
