@@ -73,6 +73,11 @@ public class User implements Serializable {
     this.favoritesList.add(favorite);
   }
 
+  public void removeFavorite(AnimalImage favorite){
+    favoritesList.removeIf(animalImage -> animalImage.getId().equals(favorite.getId()));
+
+  }
+
   public String getUserName() {
     return userName;
   }

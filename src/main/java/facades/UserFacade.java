@@ -7,8 +7,12 @@ import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 
 import security.errorhandling.AuthenticationException;
+
+import java.awt.*;
 
 /**
  * @author lam@cphbusiness.dk
@@ -83,6 +87,28 @@ public class UserFacade {
             em.close();
         }
 
+        return user;
+    }
+
+    public User removeFavorite(User user, AnimalImage image){
+        System.out.println("id: " + image.getId());
+
+
+        EntityManager em = emf.createEntityManager();
+        AnimalImage remove = em.find(AnimalImage.class, image.getId());
+
+        System.out.println("remove: " + remove.getId() + " " + remove.getURL());
+
+        user.removeFavorite(remove);
+        System.out.println(user.getFavoritesList().size());
+
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
         return user;
     }
 

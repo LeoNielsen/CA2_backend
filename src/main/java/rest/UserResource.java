@@ -131,4 +131,23 @@ public class UserResource {
         return GSON.toJson(user);
     }
 
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("removefavorite")
+    @RolesAllowed({"user", "admin"})
+    public String removeFavorite(String data) {
+        System.out.println(data);
+        AnimalImageDTO animalImageDTO = GSON.fromJson(data, AnimalImageDTO.class);
+        System.out.println(animalImageDTO.getId());
+
+        String thisuser = securityContext.getUserPrincipal().getName();
+        EntityManager em = EMF.createEntityManager();
+        User currentUser = em.find(User.class, thisuser);
+
+        UserFacade.getUserFacade(EMF).removeFavorite(currentUser, new AnimalImage(animalImageDTO.getId(), animalImageDTO.getUrl()));
+
+        return GSON.toJson(currentUser);
+    }
+
+
 }
