@@ -83,6 +83,18 @@ public class UserResource {
         return GSON.toJson(userDTO);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("favorites")
+    @RolesAllowed({"user", "admin"})
+    public String getFavorites() {
+        String thisuser = securityContext.getUserPrincipal().getName();
+        EntityManager em = EMF.createEntityManager();
+        User currentUser = em.find(User.class, thisuser);
+        UserDTO userDTO = new UserDTO(currentUser);
+        return GSON.toJson(userDTO.getFavoriteImages());
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

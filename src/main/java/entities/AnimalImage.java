@@ -1,18 +1,21 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "animal_Image")
 public class AnimalImage {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Basic(optional = false)
+    @NotNull
+    private String id;
     @Column
     private String URL;
 
-    public AnimalImage(String URL) {
+    public AnimalImage(String id, String URL) {
+        this.id = id;
         this.URL = URL;
     }
 
@@ -28,11 +31,11 @@ public class AnimalImage {
         this.URL = URL;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

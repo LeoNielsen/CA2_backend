@@ -23,9 +23,9 @@ public class SetupTestUsers {
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
 
     User user = new User("user", "test123");
-    AnimalImage a = new AnimalImage("https://cdn2.thedogapi.com/images/ZcMM_Og7i.jpg");
-    AnimalImage b = new AnimalImage("https://cdn2.thedogapi.com/images/oUFtdaSw1.jpg");
-    AnimalImage c =new AnimalImage("https://cdn2.thedogapi.com/images/WinSPF9rK.jpg");
+    AnimalImage a = new AnimalImage("CJFU6PdKW","https://cdn2.thedogapi.com/images/CJFU6PdKW.jpg");
+    AnimalImage b = new AnimalImage("y22wTybyu","https://cdn2.thedogapi.com/images/y22wTybyu.jpg");
+    AnimalImage c =new AnimalImage(	"QaFI4nE4N","https://cdn2.thedogapi.com/images/QaFI4nE4N.jpg");
 
     user.addFavorite(a);
     user.addFavorite(b);

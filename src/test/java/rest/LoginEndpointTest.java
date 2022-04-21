@@ -1,5 +1,6 @@
 package rest;
 
+import entities.AnimalImage;
 import entities.User;
 import entities.Role;
 
@@ -72,6 +73,7 @@ public class LoginEndpointTest {
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");
+            user.addFavorite(new AnimalImage("id", "url"));
             user.addRole(userRole);
             User admin = new User("admin", "test");
             admin.addRole(adminRole);
@@ -124,6 +126,32 @@ public class LoginEndpointTest {
                 .statusCode(200)
                 .body("msg", equalTo("Hello anonymous"));
     }
+
+    @Test
+    public void testRestForUserInfo() {
+        login("user", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .get("/info/userinfo").then()
+                .statusCode(200)
+                .body("userName", equalTo("user"));
+    }
+
+//    @Test
+//    public void testRestForFavorites() {
+//        login("user", "test");
+//        given()
+//                .contentType("application/json")
+//                .accept(ContentType.JSON)
+//                .header("x-access-token", securityToken)
+//                .when()
+//                .get("/info/favorites").then()
+//                .statusCode(200)
+//                .body("url", equalTo("[url]"));
+//    }
 
     @Test
     public void testRestForAdmin() {
